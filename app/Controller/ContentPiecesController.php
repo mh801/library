@@ -67,6 +67,9 @@ public function index() {
                                 ON k.id = cpk.keyword_id';
                     }
                $sql .=' WHERE 1';
+        if(isset($sd) && isset($ed)){
+             $sql .=' AND (cp.modified_at BETWEEN "'.$sd.'" AND "'.$ed.'")';
+        }
         
         if(isset($q)){
             $sql .= ' AND (cp.name LIKE "%' .$q. '%") OR (cp.description LIKE "%' .$q. '%") OR (cat.name LIKE "%' .$q. '%") OR (t.name LIKE "%' .$q. '%") OR (p.description LIKE "%' .$q. '%") OR (k.keyword LIKE "%' .$q. '%")';
@@ -97,9 +100,7 @@ public function index() {
             $edate =  $_GET['end_date'];
             $ed = date('Y-m-d H:i:s', strtotime($edate));
         }
-        if(isset($sd) && isset($ed)){
-             $sql .=' AND (cp.modified_at BETWEEN "'.$sd.'" AND "'.$ed.'")';
-        }
+
         $sql .=' ORDER BY cp.name';
            
         $this->set('pieces',$this->ContentPiece->query($sql));
