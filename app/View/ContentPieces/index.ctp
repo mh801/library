@@ -59,7 +59,7 @@ $this->assign('title', $title); ?>
                                 </select>                               
                             </div>
                             <div class="search-phone">
-                                <? echo $this->Form->input('phone_number',array(
+                                <?php echo $this->Form->input('phone_number',array(
                                             'label'=>'Phone Number',
                                             'class'=>'phone-input search-input',
                                             'value'=>'Enter a phone number')); 
@@ -80,7 +80,7 @@ $this->assign('title', $title); ?>
                             </div>   
                         
                             <div class="start-date">
-                                <? echo $this->Form->input('start_date',array(
+                                <?php echo $this->Form->input('start_date',array(
                                             'label'=>'Date Added',
                                             'class'=>'date-input',
                                             'value'=>'')); 
@@ -88,7 +88,7 @@ $this->assign('title', $title); ?>
                             </div>
                             <div class="date-divider" style="position: relative;float: right;font-size: 18px;font-weight: bold;top: -301px;color: #bebabc;left: -107px;">&ndash;</div>
                             <div class="end-date">
-                                <? echo $this->Form->input('end_date',array(
+                                <?php echo $this->Form->input('end_date',array(
                                             'label'=>'',
                                             'class'=>'date-input',
                                             'value'=>'')); 
