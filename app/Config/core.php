@@ -276,7 +276,7 @@
  * once instead of passing it each time in function calls.
  */
 	Configure::write('Config.timezone', 'America/Denver');
-
+    date_default_timezone_set('America/Denver');
 /**
  * Cache Engine Configuration
  * Default settings provided below
