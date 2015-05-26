@@ -30,7 +30,7 @@ class KeywordsController extends AppController {
 
                 }
                 else {
-                    $this->Session->setFlash(__('The Audience could not be saved. Please, try again.'),true);
+                    $this->Session->setFlash(__('The Keyword could not be saved. Please, try again.'),true);
                 }
             }
             $this->Session->setFlash(__('The Keywords has been saved.',true));

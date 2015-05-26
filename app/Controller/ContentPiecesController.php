@@ -20,7 +20,8 @@ public function index() {
         Controller::loadModel('Type');
         Controller::loadModel('Audience');
         Controller::loadModel('Partner');
-        $this->set('partners',$this->Partner->find('all'));
+        //$this->set('partners',$this->Partner->query('SELECT * FROM partners ORDER BY description ASC')); // make sort asc
+        $this->set('partners',$this->Partner->find('all', array('order'=>array('`Partner`.`description`' => 'ASC'))));
         $this->set('audiences',$this->Audience->find('all'));
         $this->set('categories',$this->Category->find('all'));
         $this->set('types',$this->Type->find('all'));    
@@ -32,6 +33,16 @@ public function index() {
                 $q = $_GET['searchwords'];
             }
         }    
+    
+            if(isset($_GET['start_date'])){
+            $sdate =  $_GET['start_date'];
+            $sd = date('Y-m-d H:i:s', strtotime($sdate));
+        }
+        if(isset($_GET['end_date'])){
+            $edate =  $_GET['end_date'];
+            $ed = date('Y-m-d H:i:s', strtotime($edate));
+        }
+
         
     $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.file_path as path,f.type as file_type,p.description as partner    
                 FROM content_pieces as cp
@@ -68,16 +79,16 @@ public function index() {
                     }
                $sql .=' WHERE 1';
         if(isset($sd) && isset($ed)){
-             $sql .=' AND (cp.modified_at BETWEEN "'.$sd.'" AND "'.$ed.'")';
+             $sql .=' AND (cp.modified_at > "'.$sd.'" AND cp.modified_at < "'.$ed.'")';
         }
         
         if(isset($q)){
-            $sql .= ' AND (cp.name LIKE "%' .$q. '%") OR (cp.description LIKE "%' .$q. '%") OR (cat.name LIKE "%' .$q. '%") OR (t.name LIKE "%' .$q. '%") OR (p.description LIKE "%' .$q. '%") OR (k.keyword LIKE "%' .$q. '%")';
+            $sql .= ' AND (cp.name LIKE "%' .$q. '%" OR cp.description LIKE "%' .$q. '%" OR cat.name LIKE "%' .$q. '%" OR t.name LIKE "%' .$q. '%" OR p.description LIKE "%' .$q. '%" OR k.keyword LIKE "%' .$q. '%")';
             
         }
         
         if(isset($_GET['partner']) && $_GET['partner'] !=''){
-           $sql .=' AND (p.id ="'.$_GET['partner'].'")';
+           $sql .=' (AND (p.id ="'.$_GET['partner'].'"))';
         }
         
         if(isset($_GET['category']) && $_GET['category'] !='0'){
@@ -92,14 +103,6 @@ public function index() {
            $sql .=' AND (t.id ="'.$_GET['type'].'")';
         }
     
-        if(isset($_GET['start_date'])){
-            $sdate =  $_GET['start_date'];
-            $sd = date('Y-m-d H:i:s', strtotime($sdate));
-        }
-        if(isset($_GET['end_date'])){
-            $edate =  $_GET['end_date'];
-            $ed = date('Y-m-d H:i:s', strtotime($edate));
-        }
 
         $sql .=' ORDER BY cp.name';
            
@@ -123,7 +126,8 @@ public function index() {
         Controller::loadModel('Type');
         Controller::loadModel('Audience');
         Controller::loadModel('Partner');
-        $this->set('partners',$this->Partner->find('all'));
+        //$this->set('partners',$this->Partner->find('all'));
+        $this->set('partners',$this->Partner->find('all', array('order'=>array('`Partner`.`description`' => 'ASC'))));
         $this->set('audiences',$this->Audience->find('all'));
         $this->set('categories',$this->Category->find('all'));
         $this->set('types',$this->Type->find('all'));
