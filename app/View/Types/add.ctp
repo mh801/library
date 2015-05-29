@@ -10,8 +10,20 @@
                                 'label'=>'Description',
                                 'class'=>'frm-input'));  
 ?>
-        <labelfor="Audience">Category</labelfor><br/>
-        <select name="Category">
+        
+        <labelfor="Brand">Brand</labelfor><br/>
+        <select name="Audience" id="audience">
+            <?php
+            foreach($audiences as $aud){             
+                ?>
+                <option value="<?php echo $aud['Audience']['id'] ?>"><?php echo $aud['Audience']['name'] ?></option>
+            <?php
+            }
+            ?>
+</select>        
+        <br/><br/>
+        <labelfor="Category">Audience</labelfor><br/>
+        <select name="Category" id="category">
             <?php
             foreach($categories as $category){             
                 ?>
@@ -20,6 +32,7 @@
             }
             ?>
 </select>
+        <br/>
 <?php
         echo $this->Form->hidden('modified_at',
     						          array('value' => date('Y-m-d H:i:s'))
@@ -27,3 +40,13 @@
         ?>
     </fieldset>
 <?php echo $this->Form->end('Submit');?>
+
+<script>
+        $('#audience').on('change',function(){
+        $.post( "/categories/filterbyaudience/?id="+$('#audience').val(),function(data){
+            if(data){
+             $('#category').html(data);
+            }
+        });
+    });
+</script>

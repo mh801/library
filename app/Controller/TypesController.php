@@ -38,6 +38,8 @@ class TypesController extends AppController {
     public function add(){
     	Controller::loadModel('Category'); 
 	 	$this->set('categories',$this->Category->find('all'));
+        Controller::loadModel('Audience'); 
+	 	$this->set('audiences',$this->Audience->find('all'));
         
 		//$this->set('Audience') = $this->Audience;
 
