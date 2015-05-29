@@ -1,7 +1,7 @@
 <h2>Add Audience</h2>
 <?php echo $this->Form->create('Audience',array('url'=>array('action'=>'post')));?>
     <fieldset>
-        <legend><?php __('Add Audience');?></legend>
+        <legend><?php __('Add Brand');?></legend>
         <?php        
         echo $this->Form->input('name',array(
                                 'label'=>'Name',

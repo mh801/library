@@ -1,7 +1,7 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Audience Name</th>
+        <th>Brand Name</th>
         <th>Description</th>
     </tr>     
    <?php foreach($audience as $aud){ ?>

@@ -14,7 +14,7 @@ class ContentPiecesController extends AppController {
 */
 
 public function index() {
-        
+        //print_r($_GET['end_date']);
         Controller::loadModel('Category'); 
         Controller::loadModel('Keyword');
         Controller::loadModel('Type');
@@ -34,17 +34,17 @@ public function index() {
             }
         }    
     
-            if(isset($_GET['start_date'])){
+        if(isset($_GET['start_date']) && $_GET['start_date'] !=''){
             $sdate =  $_GET['start_date'];
             $sd = date('Y-m-d H:i:s', strtotime($sdate));
         }
-        if(isset($_GET['end_date'])){
+        if(isset($_GET['end_date']) && $_GET['end_date'] !=''){
             $edate =  $_GET['end_date'];
-            $ed = date('Y-m-d H:i:s', strtotime($edate));
+            $ed = date('Y-m-d 23:59:59', strtotime($edate));
         }
 
         
-    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.file_path as path,f.type as file_type,p.description as partner    
+    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience    
                 FROM content_pieces as cp
                     INNER JOIN content_pieces_categories cpc
                         ON cpc.content_piece_id = cp.id
@@ -63,12 +63,13 @@ public function index() {
                     LEFT OUTER JOIN partners p
                         ON cpp.partner_id = p.id';
         
-        if(isset($_GET['audience']) && $_GET['audience'] !='0'){
+        
             $sql .=' INNER JOIN audiences_categories ac
                         ON ac.category_id = cat.id
                      INNER JOIN audiences a
-                        ON a.id = ac.audience_id
-                        AND a.id ="'.$_GET['audience'].'"';
+                        ON a.id = ac.audience_id';
+        if(isset($_GET['audience']) && $_GET['audience'] !='0'){
+                        $sql .= ' AND a.id ="'.$_GET['audience'].'"';
         }
         
         if(isset($q)){
@@ -248,9 +249,7 @@ public function index() {
                                 }
                             }     
                         }
-                    }                
-                
-                 
+                    }                                                 
             }
             else {
                 $this->Session->setFlash(__('The Content Piece could not be saved. Please, try again.'),true);

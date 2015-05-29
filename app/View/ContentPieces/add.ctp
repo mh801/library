@@ -30,7 +30,7 @@
                                 'label'=>'Links (separated by comma)',
                                 'class'=>'frm-input')); 
 ?>
-        <labelfor="Audience">Audience</labelfor><br/>
+        <labelfor="Audience">Brand</labelfor><br/>
             <select name="Audience" id="audience">
                 <?php
                 foreach($audiences as $audience){             
@@ -43,7 +43,7 @@
         <br/><br/>
         
         
-        <labelfor="Category">Category</labelfor><br/>
+        <labelfor="Category">Audience</labelfor><br/>
             <select name="Category" id="category">
                 <?php
                 foreach($categories as $category){             

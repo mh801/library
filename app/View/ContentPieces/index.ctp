@@ -20,7 +20,7 @@ $this->assign('title', $title); ?>
                     <div id="advanced-search">
                         <!--<div class="adv-fields">-->
                             <div class="search-audience">
-                                <labelfor="Audience">Audience</labelfor><br/>
+                                <labelfor="Audience">Brand</labelfor><br/>
                                 <select name="audience" id="audience">
                                     <option value="0">All</option>
                                     <?php
@@ -46,7 +46,7 @@ $this->assign('title', $title); ?>
                                 </select>                               
                             </div>
                             <div class="search-category">
-                                <labelfor="Category">Category</labelfor><br/>
+                                <labelfor="Category">Audience</labelfor><br/>
                                 <select name="category" id="category">
                                         <option value="0">All</option>
                                         <?php
@@ -116,8 +116,8 @@ $this->assign('title', $title); ?>
     <tr class="thead">
         
         <th>Name</th>
-        <th>Description</th>
-        <th>Category</th>
+        <th>Brand</th>
+        <th>Audience</th>
         <th>Type</th>
         <th>Links</th>
         
@@ -137,8 +137,12 @@ foreach($pieces as $piece){
     ?>
         <tr>
             
-            <td class="piece-name"><?php echo $piece['cp']['name'] ?></td>
-            <td><?php echo $piece['cp']['description'] ?></td>
+            <td class="piece-name" rel="<?php echo $piece['cp']['id'] ?>">
+                <?php echo $piece['cp']['name'] ?>
+                <div class="piece-desc" id="<?php echo $piece['cp']['id'] ?>">Description:<br/><?php echo $piece['cp']['description'] ?></div>
+            </td>
+            <td><?php echo $piece['a']['audience'] ?></td>
+            <!--<td><?php echo $piece['cp']['description'] ?></td> -->
             <td><!--<a href="/categories/view/<?php echo $piece['cat']['category_id'] ?>">--><?php echo $piece['cat']['cat'] ?><!--</a>--></td>
             <td><!--<a href="/types/view/<?php echo $piece['t']['type_id'] ?>">--><?php echo $piece['t']['type'] ?><!--</a>--></td>
             <td>
@@ -196,7 +200,14 @@ $(document).ready(function(){
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
-    $('#pieces').DataTable();
+    $('#pieces').DataTable(
+        {
+           'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+        }
+    );
     $('.download').removeClass('sorting');
     
     $( ".date-input" ).datepicker();
@@ -247,6 +258,7 @@ $(document).ready(function(){
         }                     
     });
     
+    
     $('.dataTables_empty').html('<span style="font-weight:bold">Sorry, there are no results.</span> Try another search.');
     
         $('#audience').on('change',function(){
@@ -263,7 +275,16 @@ $(document).ready(function(){
              $('#type').html(data);
             }
         });
-    });    
+    });  
+    
+    $('.piece-desc').hide();
+    $('.piece-name').hover(
+        function(){
+            $('#'+$(this).attr('rel')).show();
+        },
+        function(){
+            $('#'+$(this).attr('rel')).hide();    
+    });
 });
     
     

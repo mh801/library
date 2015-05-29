@@ -855,6 +855,17 @@ td.piece-name{
     color: #00b74f;
 }
 
+
+.piece-desc{
+    position: absolute;
+    z-index: 999;
+    padding: 15px;
+    color:#7e7d7f;
+    background: #fff;
+    border: 1px solid #7e7d7f;
+    border-radius: 5px;
+    font-weight: normal;
+}
 /*search*/
 
 .search-criteria{

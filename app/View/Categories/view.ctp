@@ -1,9 +1,9 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Category Name</th>
+        <th>Audience Name</th>
         <th>Description</th>
-        <th>Audience</th>
+        <th>Brand</th>
         <th>Types</th>
     </tr>
    <?php foreach($category as $cat){ ?>

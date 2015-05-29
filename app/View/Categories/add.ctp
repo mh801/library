@@ -1,7 +1,7 @@
 <h2>Add Category</h2>
 <?php echo $this->Form->create('Category',array('url'=>array('action'=>'post')));?>
     <fieldset>
-        <legend><?php __('Add Category');?></legend>
+        <legend><?php __('Add Audience');?></legend>
         <?php        
         echo $this->Form->input('name',array(
                                 'label'=>'Name',
@@ -10,7 +10,7 @@
                                 'label'=>'Description',
                                 'class'=>'frm-input'));  
 ?>
-        <labelfor="Audience">Audience</labelfor><br/>
+        <labelfor="Audience">Brand</labelfor><br/>
         <select name="Audience">
             <?php
             foreach($audiences as $audience){             
