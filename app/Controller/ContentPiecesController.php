@@ -220,7 +220,7 @@ public function index() {
                     if($this->data['ContentPiece']['Keyword'] !=''){
                        foreach($keyword as $key=>$val){
                             $this->Keyword->create();
-                            $k['keyword'] = $val;
+                            $k['keyword'] = ltrim($val);
                             if ($this->Keyword->save($k)) {                     
                                 $this->ContentPiecesKeywords->create();
                                 if ($this->ContentPiecesKeywords) {
