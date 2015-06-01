@@ -47,7 +47,9 @@ class FilesController extends AppController {
                 $this->File->file_path = DS . 'uploads' . DS . $name;
                 $this->File->type = $type;
                 $this->File->is_active = 1;
-            }            
+            }else{
+                die($error);
+            }
             
             
             if ($this->File->save($this->File)) {                  
