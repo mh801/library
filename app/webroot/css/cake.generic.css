@@ -957,7 +957,7 @@ td.piece-name{
       position: relative;
       float: right;
       top: -73px;
-    left: -27px;
+      left: 0px;
 }
 
 .search-category{
@@ -1120,3 +1120,26 @@ label{
   left: -81px;
     height: 36px;
 }
+
+.ui-autocomplete-input{
+ color: #bebabc;
+  border: 1px solid #bebabc;
+  height: 25px;
+  font-size: 16px;
+  width: 180px;
+  background: #fff;
+    float: left;
+}
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+  border: 1px solid #d3d3d3;
+  background: white;
+  font-weight: normal;
+  color: #bebabc;
+}
+.custom-combobox{
+      width: 250px;
+  position: relative;
+}
+.ui-button{
+  float: right;
+  height: 24px;}

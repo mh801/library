@@ -89,7 +89,7 @@ public function index() {
         }
         
         if(isset($_GET['partner']) && $_GET['partner'] !=''){
-           $sql .=' (AND (p.id ="'.$_GET['partner'].'"))';
+           $sql .=' AND (p.id ='.$_GET['partner'].')';
         }
         
         if(isset($_GET['category']) && $_GET['category'] !='0'){
