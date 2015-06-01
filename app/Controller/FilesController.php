@@ -48,7 +48,7 @@ class FilesController extends AppController {
                 $this->File->type = $type;
                 $this->File->is_active = 1;
             }else{
-                die($error);
+                $this->set('error',$error);
             }
             
             
