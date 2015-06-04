@@ -100,7 +100,7 @@ public function index() {
            $sql .=' AND (cp.phone_number ="'.$_GET['phone_number'].'")';
         }
         
-        if(isset($_GET['type']) && $_GET['type'] !=''){
+        if(isset($_GET['type']) && $_GET['type'] !='' && $_GET['type'] != '0'){
            $sql .=' AND (t.id ="'.$_GET['type'].'")';
         }
     
@@ -112,7 +112,7 @@ public function index() {
             $this->set('search_criteria',$q);    
         }
        
-        $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC LIMIT 10';
+        $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC limit 10';
         $this->set('cloudwords',$this->Keyword->query($ksql));
     //var_dump($this->ContentPiece);
         

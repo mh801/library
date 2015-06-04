@@ -1,4 +1,4 @@
-<h2>Add Category</h2>
+<h2>Add Audience</h2>
 <?php echo $this->Form->create('Category',array('url'=>array('action'=>'post')));?>
     <fieldset>
         <legend><?php __('Add Audience');?></legend>

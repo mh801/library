@@ -148,7 +148,9 @@ foreach($pieces as $piece){
             <td>
                 <?php foreach($links as $link){
                     //var_dump($keyword);
+                    
                     echo '<a href="'.$link['l']['url'].'" target="_blank">'. $link['l']['url'] . '</a><br/>';
+                   
                 }?>
             </td>
             <!--
@@ -164,12 +166,16 @@ foreach($pieces as $piece){
                 $date = date("m/d/Y", strtotime($piece['cp']['modified_at']));
             ?>
             <td style="position:relative;width:100px;"><?php echo $date ?></td>        
-            <td class="dl-btn"><a href="<?php echo $piece['f']['path'] ?>"><img src="https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/download.png"/></a></td>
+            <td class="dl-btn">
+               <?php if(!$links){ ?>
+                <a href="<?php echo $piece['f']['path'] ?>" target="_blank"><img src="https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/download.png"/></a>
+                <?php } ?>
+            </td>
         </tr>
 <?php } ?>
         </tbody>
 </table>
-<?php $weight = 55; ?>
+<?php $weight = 105; ?>
 <script>
 var words = [
 <?php 
@@ -189,7 +195,7 @@ var words = [
 var visible = 0    
 $(document).ready(function(){
     
-    $( "#partners" ).combobox();
+    //$( "#partners" ).combobox();
     
     $('#advanced-search').hide();
     //$('.search-btn').css({'left':'0px'});
@@ -294,6 +300,7 @@ $(document).ready(function(){
 </script>
     
   <script>
+      /*
   (function( $ ) {
     $.widget( "custom.combobox", {
       _create: function() {
@@ -424,5 +431,5 @@ $(document).ready(function(){
     });
   })( jQuery );
  
-
+*/
   </script>    

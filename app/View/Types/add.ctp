@@ -1,4 +1,4 @@
-<h2>Add Category Type</h2>
+<h2>Add Piece Type</h2>
 <?php echo $this->Form->create('Type',array('url'=>array('action'=>'post')));?>
     <fieldset>
         <legend><?php __('Add Category Type');?></legend>
