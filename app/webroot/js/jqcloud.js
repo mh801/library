@@ -44,7 +44,7 @@
     width: 100,
     height: 100,
     center: { x: 0.5, y: 0.5 },
-    steps: 11,
+    steps: 15,
     delay: null,
     shape: 'elliptic',
     classPattern: 'w{n}',

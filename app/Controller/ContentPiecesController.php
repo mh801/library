@@ -112,7 +112,7 @@ public function index() {
             $this->set('search_criteria',$q);    
         }
        
-        $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC limit 10';
+        $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC LIMIT 15';
         $this->set('cloudwords',$this->Keyword->query($ksql));
     //var_dump($this->ContentPiece);
         
