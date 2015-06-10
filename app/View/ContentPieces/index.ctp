@@ -169,7 +169,7 @@ foreach($pieces as $piece){
             <td class="dl-btn">
                <?php if(!$links){ ?>
                 
-                <a href="<?php echo '/uploads/'.$piece['f']['file_name'] ?>" target="_blank"><img src="https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/download.png"/></a>
+                <a href="<?php echo '/uploads/'.$piece['f']['file_name'] ?>" target="_blank" alt="<?php echo ($piece['f']['file_type'] == 'application/zip'?'Download':'View';?>"><img src="https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/download.png"/></a>
                 <?php } ?>
             </td>
         </tr>
