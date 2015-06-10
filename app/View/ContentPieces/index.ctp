@@ -168,7 +168,7 @@ foreach($pieces as $piece){
             <td style="position:relative;width:100px;"><?php echo $date ?></td>        
             <td class="dl-btn">
                <?php if(!$links){ ?>
-                <?php var_dump($piece['f']); ?>
+                
                 <a href="<?php echo '/uploads/'.$piece['f']['file_name'] ?>" target="_blank"><img src="https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/download.png"/></a>
                 <?php } ?>
             </td>
