@@ -1,4 +1,5 @@
 <?php
+App::uses('File', 'Utility');
 class ContentPiecesController extends AppController {
     public $scaffold = 'admin';
 /*
@@ -12,7 +13,31 @@ class ContentPiecesController extends AppController {
 
 
 */
-
+public function delete($id = null) {
+    $this->layout = 'admin';
+        
+    $id = $_GET['id']; 
+    if($this->ContentPiece->delete($id)){         
+         Controller::loadModel('ContentPiecesFiles'); 
+         $file_ids = $this->ContentPiece->query('select file_id from content_pieces_files where content_piece_id ='.$id);
+        
+        foreach($file_ids as $file){
+            $fids[] = $file['content_pieces_files']['file_id'];
+            
+            $paths = $this->ContentPiece->query('select file_path from files where id ='.$file['content_pieces_files']['file_id']);
+            $html ='';
+            foreach($paths as $path){
+                $f = new File(WWW_ROOT.$path['files']['file_path']);            
+                if($f->delete()){
+                    $html .= '<br/><h2>'.$path['files']['file_path'].' deleted</h2>';
+                }
+            }
+        }
+         $this->set('result',$html); 
+        
+    }        
+}
+    
 public function index() {
         //print_r($_GET['end_date']);
         Controller::loadModel('Category'); 
@@ -44,7 +69,7 @@ public function index() {
         }
 
         
-    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience    
+    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file_name,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience    
                 FROM content_pieces as cp
                     INNER JOIN content_pieces_categories cpc
                         ON cpc.content_piece_id = cp.id
@@ -73,9 +98,9 @@ public function index() {
         }
         
         if(isset($q)){
-                    $sql .= ' INNER JOIN content_pieces_keywords cpk 
+                    $sql .= ' LEFT OUTER JOIN content_pieces_keywords cpk 
                                 ON cpk.content_piece_id = cp.id 
-                              INNER JOIN keywords k 
+                              LEFT OUTER JOIN keywords k 
                                 ON k.id = cpk.keyword_id';
                     }
                $sql .=' WHERE 1';
@@ -259,6 +284,111 @@ public function index() {
             $this->data = $this->ContentPiece->read(null, $id);
         }
 
-	}      
+	}     
+    
+   public function modify() {
+        //print_r($_GET['end_date']);
+        Controller::loadModel('Category'); 
+        Controller::loadModel('Keyword');
+        Controller::loadModel('Type');
+        Controller::loadModel('Audience');
+        Controller::loadModel('Partner');
+        //$this->set('partners',$this->Partner->query('SELECT * FROM partners ORDER BY description ASC')); // make sort asc
+        $this->set('partners',$this->Partner->find('all', array('order'=>array('`Partner`.`description`' => 'ASC'))));
+        $this->set('audiences',$this->Audience->find('all'));
+        $this->set('categories',$this->Category->find('all'));
+        $this->set('types',$this->Type->find('all'));    
+    // This fetches Leaders, and their associated Followers
+    //$all = $this->ContentPiece->find('all');
+       // var_dump($_GET['searchwords']);
+        if(isset($_GET['searchwords'])){  
+            if($_GET['searchwords'] != 'Search for content by name or keyword'){
+                $q = $_GET['searchwords'];
+            }
+        }    
+    
+        if(isset($_GET['start_date']) && $_GET['start_date'] !=''){
+            $sdate =  $_GET['start_date'];
+            $sd = date('Y-m-d H:i:s', strtotime($sdate));
+        }
+        if(isset($_GET['end_date']) && $_GET['end_date'] !=''){
+            $edate =  $_GET['end_date'];
+            $ed = date('Y-m-d 23:59:59', strtotime($edate));
+        }
+
+        
+    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience    
+                FROM content_pieces as cp
+                    INNER JOIN content_pieces_categories cpc
+                        ON cpc.content_piece_id = cp.id
+                    INNER JOIN categories cat
+                        ON cpc.category_id = cat.id
+                    INNER JOIN content_pieces_types cpt
+                        ON cpt.content_piece_id = cp.id
+                    INNER JOIN types t
+                        ON cpt.type_id = t.id      
+                    INNER JOIN content_pieces_files cpf
+                        ON cpf.content_piece_id = cp.id
+                    INNER JOIN files f
+                        ON cpf.file_id = f.id
+                    LEFT OUTER JOIN content_pieces_partners cpp
+                        ON cpp.content_piece_id = cp.id
+                    LEFT OUTER JOIN partners p
+                        ON cpp.partner_id = p.id';
+        
+        
+            $sql .=' INNER JOIN audiences_categories ac
+                        ON ac.category_id = cat.id
+                     INNER JOIN audiences a
+                        ON a.id = ac.audience_id';
+        if(isset($_GET['audience']) && $_GET['audience'] !='0'){
+                        $sql .= ' AND a.id ="'.$_GET['audience'].'"';
+        }
+        
+        if(isset($q)){
+                    $sql .= ' INNER JOIN content_pieces_keywords cpk 
+                                ON cpk.content_piece_id = cp.id 
+                              INNER JOIN keywords k 
+                                ON k.id = cpk.keyword_id';
+                    }
+               $sql .=' WHERE 1';
+        if(isset($sd) && isset($ed)){
+             $sql .=' AND (cp.modified_at > "'.$sd.'" AND cp.modified_at < "'.$ed.'")';
+        }
+        
+        if(isset($q)){
+            $sql .= ' AND (cp.name LIKE "%' .$q. '%" OR cp.description LIKE "%' .$q. '%" OR cat.name LIKE "%' .$q. '%" OR t.name LIKE "%' .$q. '%" OR p.description LIKE "%' .$q. '%" OR k.keyword LIKE "%' .$q. '%")';
+            
+        }
+        
+        if(isset($_GET['partner']) && $_GET['partner'] !=''){
+           $sql .=' AND (p.id ='.$_GET['partner'].')';
+        }
+        
+        if(isset($_GET['category']) && $_GET['category'] !='0'){
+           $sql .=' AND (cat.id ="'.$_GET['category'].'")';
+        }
+        
+        if(isset($_GET['phone_number']) && $_GET['phone_number'] !='' && $_GET['phone_number'] != 'Enter a phone number'){
+           $sql .=' AND (cp.phone_number ="'.$_GET['phone_number'].'")';
+        }
+        
+        if(isset($_GET['type']) && $_GET['type'] !='' && $_GET['type'] != '0'){
+           $sql .=' AND (t.id ="'.$_GET['type'].'")';
+        }
+    
+
+        $sql .=' ORDER BY cp.name';
+           
+        $this->set('pieces',$this->ContentPiece->query($sql));
+        if(isset($q)){
+            $this->set('search_criteria',$q);    
+        }
+       
+        $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC LIMIT 15';
+        $this->set('cloudwords',$this->Keyword->query($ksql));
+    //var_dump($this->ContentPiece);
+        
+           } 
     
 }

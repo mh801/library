@@ -54,8 +54,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
             </div>
             
             <menu>
-                <?php echo $this->Html->link('Show Content Pieces', '/'); ?> |<?php echo $this->Html->link('Add Content Piece', '/content_pieces/add'); ?> | <?php echo $this->Html->link('Add Brand', '/audiences/add'); ?> | <?php echo $this->Html->link('Add Audience', '/categories/add'); ?> | <?php echo $this->Html->link('Add Piece Type', '/types/add'); ?> | <?php
- echo $this->Html->link( "Add A New User",   array('controller'=>'Users','action'=>'add') ); 
+                <?php echo $this->Html->link('Show Content Pieces', '/'); ?> |<?php echo $this->Html->link('Add Content Piece', '/content_pieces/add'); ?> |<?php echo $this->Html->link('Remove Content Piece', '/content_pieces/modify'); ?> | <?php echo $this->Html->link('Add Brand', '/audiences/add'); ?> | <?php echo $this->Html->link('Add Audience', '/categories/add'); ?> | <?php echo $this->Html->link('Add Piece Type', '/types/add'); ?>  <?php
+// /echo $this->Html->link( "Add A New User",   array('controller'=>'Users','action'=>'add') ); 
 ?>
             </menu>
             

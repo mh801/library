@@ -1,6 +1,9 @@
 <?php
 class FilesController extends AppController {    
     
+  
+
+    
     public $scaffold = 'admin';
     //public $destination = dirname(__FILE__) . '../webroot/uploads/';
     
@@ -119,4 +122,5 @@ class FilesController extends AppController {
         }
     }
     
-}
+    }
+    
