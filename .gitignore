@@ -1,2 +1,2 @@
-app/webroot/uploads/*
-app/tmp/logs/*
+app/webroot/uploads/**
+app/tmp/logs/**
