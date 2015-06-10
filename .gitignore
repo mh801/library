@@ -1,2 +1,3 @@
 app/webroot/uploads/**
 app/tmp/logs/**
+*.log
