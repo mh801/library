@@ -837,6 +837,7 @@ table.dataTable thead .sorting{
 td.piece-name{
     color:#23bb5e;
     font-weight: bold;
+    max-width: 96px;
 }
 
 #pieces_length{
