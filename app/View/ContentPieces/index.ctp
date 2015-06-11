@@ -14,7 +14,7 @@ $this->assign('title', $title); ?>
                     echo $this->Form->hidden('search_status',
                                                   array('value' => true)
                                             );
-                    echo $this->Form->submit('Search', array('type'=>'image','src' => 'https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/search-btn.png','class'=>'search-btn')); 
+                                        echo $this->Form->submit('Search', array('type'=>'image','src' => 'https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/search-btn.png','class'=>'search-btn')); 
 ?>
                     <h2 class="adv-search">+ Advanced Search</h2>
                     <div id="advanced-search">
@@ -141,7 +141,7 @@ foreach($pieces as $piece){
                 <?php echo $piece['cp']['name'] ?>
                 <div class="piece-desc" id="<?php echo $piece['cp']['id'] ?>">Description:<br/><?php echo $piece['cp']['description'] ?></div>
             </td>
-            <td><?php echo $piece['a']['audience'] ?></td>
+            <td><?php //echo $piece['a']['audience'] ?></td>
             <!--<td><?php echo $piece['cp']['description'] ?></td> -->
             <td><!--<a href="/categories/view/<?php echo $piece['cat']['category_id'] ?>">--><?php echo $piece['cat']['cat'] ?><!--</a>--></td>
             <td><!--<a href="/types/view/<?php echo $piece['t']['type_id'] ?>">--><?php echo $piece['t']['type'] ?><!--</a>--></td>
@@ -204,8 +204,17 @@ $(document).ready(function(){
         visible = (visible ==0)?1:0;
         if(visible == 1){
             $('.adv-search').text('- Advanced Search');
+            $('.search-btn').css({'top': '250px',
+                                'left': '-52px',
+                                 'z-index':'999'});
+            $('.search-words').addClass('adv-search-words');
         }else{
              $('.adv-search').text('+ Advanced Search');
+             $('.search-btn').css({'top': '-47px',
+                                'left': '-81px',
+                                 'z-index':'999'});
+
+            $('.search-words').removeClass('adv-search-words');
         }
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});

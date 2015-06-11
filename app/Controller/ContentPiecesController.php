@@ -69,7 +69,7 @@ public function index() {
         }
 
         
-    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file_name,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience    
+    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file_name,f.file_path as path,f.type as file_type,p.description as partner
                 FROM content_pieces as cp
                     INNER JOIN content_pieces_categories cpc
                         ON cpc.content_piece_id = cp.id
@@ -89,12 +89,12 @@ public function index() {
                         ON cpp.partner_id = p.id';
         
         
-            $sql .=' INNER JOIN audiences_categories ac
+           /* $sql .=' INNER JOIN audiences_categories ac
                         ON ac.category_id = cat.id
                      INNER JOIN audiences a
-                        ON a.id = ac.audience_id';
+                        ON a.id = ac.audience_id';*/
         if(isset($_GET['audience']) && $_GET['audience'] !='0'){
-                        $sql .= ' AND a.id ="'.$_GET['audience'].'"';
+                       // $sql .= ' AND a.id ="'.$_GET['audience'].'"';
         }
         
         if(isset($q)){
@@ -104,6 +104,7 @@ public function index() {
                                 ON k.id = cpk.keyword_id';
                     }
                $sql .=' WHERE 1';
+    
         if(isset($sd) && isset($ed)){
              $sql .=' AND (cp.modified_at > "'.$sd.'" AND cp.modified_at < "'.$ed.'")';
         }
@@ -136,7 +137,7 @@ public function index() {
         if(isset($q)){
             $this->set('search_criteria',$q);    
         }
-       
+       //echo $sql;
         $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC LIMIT 15';
         $this->set('cloudwords',$this->Keyword->query($ksql));
     //var_dump($this->ContentPiece);

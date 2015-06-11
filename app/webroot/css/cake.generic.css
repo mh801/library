@@ -892,7 +892,7 @@ td.piece-name{
   color: #00b74f;
   background: #f8f7f8;
   position: relative;
-  height: 200px;
+  height: 240px;
   width: 470px;
   left: -50px;
 }
@@ -913,6 +913,11 @@ td.piece-name{
   top: -47px;
   left: -81px;
 }
+.adv-search-btn{
+  top: 249px;
+  z-index: 999;
+  left: -53px;
+}
 
 .search-words{
     position: relative;
@@ -924,6 +929,9 @@ td.piece-name{
     border: 1px solid #bebabc;
     height: 24px;
 }
+.adv-search-words{
+    width: 410px;
+}  
 .search-input{
     position: relative;
     width:320px;
