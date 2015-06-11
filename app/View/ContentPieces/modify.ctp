@@ -144,7 +144,7 @@ $(document).ready(function(){
             $phone.val('Enter a phone number');
         }                     
     });  
-    $('#pieces_filter').hide();
+    //$('#pieces_filter').hide();
    // $( ".end-date" ).datepicker();
     //$('.dataTables_filter label').html('Filter Table <br/><input type="search" class="" placeholder="" aria-controls="pieces">');
     
