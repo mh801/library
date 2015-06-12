@@ -115,14 +115,14 @@ $this->assign('title', $title); ?>
     <thead>
     <tr class="thead">
         
-        <th>Name</th>
-        <th>Brand</th>
-        <th>Audience</th>
-        <th>Type</th>
-        <th>Links</th>
+        <th class="th-name">Name</th>
+        <th class="th-brand">Brand</th>
+        <th class="th-audience">Audience</th>
+        <th class="th-type">Type</th>
+        <th class="th-links">Links</th>
         
-        <th>Partner</th>
-        <th>Date</th>        
+        <th class="th-partner">Partner</th>
+        <th class="th-date">Date</th>        
         <th class="download">Download</th>
     </tr>
     </thead>
@@ -141,11 +141,11 @@ foreach($pieces as $piece){
                 <?php echo $piece['cp']['name'] ?>
                 <div class="piece-desc" id="<?php echo $piece['cp']['id'] ?>">Description:<br/><?php echo $piece['cp']['description'] ?></div>
             </td>
-            <td><?php echo $piece['a']['audience'] ?></td>
+            <td class="brand"><?php echo $piece['a']['audience'] ?></td>
             <!--<td><?php echo $piece['cp']['description'] ?></td> -->
-            <td><!--<a href="/categories/view/<?php echo $piece['cat']['category_id'] ?>">--><?php echo $piece['cat']['cat'] ?><!--</a>--></td>
+            <td class="audience"><!--<a href="/categories/view/<?php echo $piece['cat']['category_id'] ?>">--><?php echo $piece['cat']['cat'] ?><!--</a>--></td>
             <td><!--<a href="/types/view/<?php echo $piece['t']['type_id'] ?>">--><?php echo $piece['t']['type'] ?><!--</a>--></td>
-            <td>
+            <td class="links">
                 <?php foreach($links as $link){
                     //var_dump($keyword);
                     
@@ -161,11 +161,11 @@ foreach($pieces as $piece){
                 }?>
             </td>
             -->
-            <td><?php echo ($piece['p']['partner']!=null)?$piece['p']['partner']:'N/A' ?></td>
+            <td class="partner"><?php echo ($piece['p']['partner']!=null)?$piece['p']['partner']:'N/A' ?></td>
             <?php
                 $date = date("m/d/Y", strtotime($piece['cp']['modified_at']));
             ?>
-            <td style="position:relative;width:100px;"><?php echo $date ?></td>        
+            <td style="position:relative;width:100px;" class="date"><?php echo $date ?></td>        
             <td class="dl-btn">
                <?php if(!$links){ ?>
                 
@@ -176,6 +176,39 @@ foreach($pieces as $piece){
 <?php } ?>
         </tbody>
 </table>
+<script>
+    
+$(document).ready(function() {
+var stdTable1 = $("#pieces").dataTable({
+    "iDisplayLength": -1,
+    "bPaginate": true,
+    "iCookieDuration": 60,
+    "bStateSave": false,
+    "bAutoWidth": false,
+    //true
+    "bScrollAutoCss": false,
+    "bProcessing": true,
+    "bRetrieve": true,
+    //"bJQueryUI": true,
+    //"sDom": 't',
+    //"sDom": '<"H"CTrf>t<"F"lip>',
+   //"aLengthMenu": [[25, 50, 100, -1], [25, 50, 100, "All"]],
+    //"sScrollY": "500px",
+    //"sScrollX": "100%",
+    "sScrollXInner": "100%",
+    "fnInitComplete": function() {
+        //this.css("visibility", "visible");
+    },
+               'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1] /* 1st one, start by the right */
+            }]
+});  
+
+var tableId = 'pieces';
+$('<div style="width: 970px;"></div>').append($('#' + tableId)).insertAfter($('#' + tableId + '_wrapper div').first())});        
+        
+</script>    
 <?php $weight = 105; ?>
 <script>
 var words = [
@@ -219,14 +252,24 @@ $(document).ready(function(){
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
+    /*
     $('#pieces').DataTable(
-        {
+        {   "bAutoWidth": false,
+            'sScrollXInner':false,
            'aoColumnDefs': [{
                 'bSortable': false,
                 'aTargets': [-1] /* 1st one, start by the right */
             }]
         }
     );
+    
+    
+*/
+
+
+    
+    
+    
     $('.download').removeClass('sorting');
     
     $( ".date-input" ).datepicker();
@@ -445,3 +488,4 @@ $(document).ready(function(){
  
 */
   </script>    
+    

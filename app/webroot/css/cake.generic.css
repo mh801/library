@@ -779,8 +779,8 @@ select[name="pieces_length"]{
     height: 24px;
 }
 table.dataTable{
-    width: 960px;
-    max-width: 960PX;
+    width: 960px !Important;
+    max-width: 960PX !Important;
     float: left;
     left:-20px;
     position: relative;
@@ -1161,4 +1161,46 @@ label{
 }
 table.dataTable thead .sorting,table.dataTable thead .sorting_desc,table.dataTable thead .sorting_asc{
     text-align: left; 
+}
+th.th-name,td.piece-name{
+    position: relative;
+    width: 119px !Important;
+}
+th.th-brand,td.brand{
+    position: relative;
+    width: 90px !Important;    
+}
+th.th-audience,td.audience{
+    position: relative;
+    width: 106px !Important;    
+}
+th.th-links,td.links{
+    position: relative;
+    width: 241px !Important;    
+}
+th.th-type,td.type{
+    position: relative;
+    width: 77px !Important;    
+}
+th.th-partner,td.partner{
+    position: relative;
+    width: 103px !Important;    
+}
+th.th-date,td.date{
+    position: relative;
+    width: 109px !Important;    
+}
+th.th-download,td.dl-btn{
+    position: relative;
+    width: 115px !Important;    
+}
+th{
+    text-align: center !important;
+}
+table.dataTable thead th{
+    padding: 10px !important;
+    padding-left: 5px;
+}
+td.piece-name{
+    padding-left:10px;
 }
