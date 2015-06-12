@@ -141,7 +141,7 @@ foreach($pieces as $piece){
                 <?php echo $piece['cp']['name'] ?>
                 <div class="piece-desc" id="<?php echo $piece['cp']['id'] ?>">Description:<br/><?php echo $piece['cp']['description'] ?></div>
             </td>
-            <td><?php //echo $piece['a']['audience'] ?></td>
+            <td><?php echo $piece['a']['audience'] ?></td>
             <!--<td><?php echo $piece['cp']['description'] ?></td> -->
             <td><!--<a href="/categories/view/<?php echo $piece['cat']['category_id'] ?>">--><?php echo $piece['cat']['cat'] ?><!--</a>--></td>
             <td><!--<a href="/types/view/<?php echo $piece['t']['type_id'] ?>">--><?php echo $piece['t']['type'] ?><!--</a>--></td>
@@ -297,15 +297,17 @@ $(document).ready(function(){
     });  
     
     $('.piece-desc').hide();
-    $('.piece-name').hover(
-        function(){
-            $('#'+$(this).attr('rel')).show();
-        },
-        function(){
-            $('#'+$(this).attr('rel')).hide();    
-    });
-});
     
+    //show description on the hover of piece name
+    $(document).on('mouseenter','.piece-name', 
+        function (event) {
+            $('#'+$(this).attr('rel')).show();
+        }).on('mouseleave','.piece-name',  
+        function(){     
+            $('#'+$(this).attr('rel')).hide();    
+    });   
+    
+});
     
 </script>
     

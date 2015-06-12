@@ -69,7 +69,7 @@ public function index() {
         }
 
         
-    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file_name,f.file_path as path,f.type as file_type,p.description as partner
+    $sql ='SELECT  distinct cp.id,cp.modified_at,cp.name,cp.description,cp.created_at,cat.id as category_id,cat.name as cat,t.name as type,t.id as type_id,f.name as file_name,f.file_path as path,f.type as file_type,p.description as partner, a.name as audience, a.id
                 FROM content_pieces as cp
                     INNER JOIN content_pieces_categories cpc
                         ON cpc.content_piece_id = cp.id
@@ -88,13 +88,14 @@ public function index() {
                     LEFT OUTER JOIN partners p
                         ON cpp.partner_id = p.id';
         
-        
-           /* $sql .=' INNER JOIN audiences_categories ac
-                        ON ac.category_id = cat.id
-                     INNER JOIN audiences a
-                        ON a.id = ac.audience_id';*/
+            $sql .=' INNER JOIN content_pieces_audiences cpa
+                        ON cpa.content_piece_id = cp.id'; 
+    
+            $sql .=' INNER JOIN audiences a
+                        ON a.id = cpa.audience_id';
+                                  
         if(isset($_GET['audience']) && $_GET['audience'] !='0'){
-                       // $sql .= ' AND a.id ="'.$_GET['audience'].'"';
+                        $sql .= ' AND a.id ="'.$_GET['audience'].'"';
         }
         
         if(isset($q)){
