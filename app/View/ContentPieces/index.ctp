@@ -124,7 +124,7 @@ $this->assign('title', $title);
      </div>
 
 <div style="clear:both;"></div>
-<h2 class="search-criteria"><?= (isset($search_criteria))?'Displaying results for : '.$search_criteria:'Most Recent' ?></h2>
+<h2 class="search-criteria"><?php echo (isset($search_criteria))?'Displaying results for : '.$search_criteria:'Most Recent' ?></h2>
 <table cellpadding="0" cellspacing="0" id="pieces">
     <thead>
     <tr class="thead">
