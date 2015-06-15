@@ -218,10 +218,10 @@ var stdTable1 = $("#pieces").dataTable({
                 'aTargets': [-1] // 1st one, start by the right 
             }]
 });  
-*/
+
 var tableId = 'pieces';
 $('<div style="width: 970px;"></div>').append($('#' + tableId)).insertAfter($('#' + tableId + '_wrapper div').first())});        
-        
+  */      
 </script>    
 <?php $weight = 105; ?>
 <script>
@@ -273,13 +273,14 @@ $(document).ready(function(){
             'sScrollXInner':false,
             "bScrollAutoCss": false,
             "bAutoWidth": false,
-            "sScrollXInner": "100%",
+            "sScrollXInner": "110%",
             "iDisplayLength": -1,
+           "aLengthMenu": [[10,25, 50, 100, -1], [10,25, 50, 100, "All"]],
            'aoColumnDefs': [{
                 'bSortable': false,
                 'aTargets': [-1],
-               "sWidth": "20%"
-            }]
+                "sWidth": "auto",                         
+            }],
         }
     ); 
 
