@@ -910,9 +910,11 @@ td.piece-name{
   width: 60px;
   border: none;
   float: right;
-  top: -47px;
-  left: -81px;
+  top: -250px;
+  left: -52px;
+    z-index: 999;
 }
+
 .adv-search-btn{
   top: 249px;
   z-index: 999;
