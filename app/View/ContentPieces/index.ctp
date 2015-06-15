@@ -1,16 +1,20 @@
 <?php
 //Content Piece index and search
 $title = (isset($search_criteria))?'Content Library Search - "'.$search_criteria.'"':'Content Library - Most Recent Content';
-$this->assign('title', $title); ?>
+$this->assign('title', $title); 
+
+//var_dump($qstring);
+?>
 <div id="search">
                 <h2>Search for content</h2>
                 <?php echo $this->Form->create('Search',array('type' => 'get'));?>
                 <fieldset>
-                    <?php        
+                    <?php 
+                    $swords = (isset($qstring['searchwords']))?$qstring['searchwords']:'Search for content by name or keyword';
                     echo $this->Form->input('searchwords',array(
                                             'label'=>'',
                                             'class'=>'search-words',
-                                            'value'=>'Search for content by name or keyword'));              
+                                            'value'=>$swords));              
                     echo $this->Form->hidden('search_status',
                                                   array('value' => true)
                                             );
@@ -26,7 +30,8 @@ $this->assign('title', $title); ?>
                                     <?php
                                     foreach($audiences as $audience){             
                                         ?>
-                                        <option value="<?php echo $audience['Audience']['id'] ?>"><?php echo $audience['Audience']['name'] ?></option>
+                                        <option value="<?php echo $audience['Audience']['id'] ?>" <?php echo (isset($qstring['audience']) &&
+                                        $qstring['audience'] == $audience['Audience']['id'])?'selected':''; ?>><?php echo $audience['Audience']['name'] ?></option>
                                     <?php
                                     }
                                     ?>
@@ -39,7 +44,8 @@ $this->assign('title', $title); ?>
                                     <?php
                                     foreach($partners as $partner){             
                                         ?>
-                                        <option value="<?php echo $partner['Partner']['id'] ?>"><?php echo $partner['Partner']['description'] ?></option>
+                                        <option value="<?php echo $partner['Partner']['id'] ?>" <?php echo (isset($qstring['partner']) &&
+                                        $qstring['partner'] == $partner['Partner']['id'])?'selected':''; ?>><?php echo $partner['Partner']['description'] ?></option>
                                     <?php
                                     }
                                     ?>
@@ -52,17 +58,20 @@ $this->assign('title', $title); ?>
                                         <?php
                                         foreach($categories as $category){             
                                             ?>
-                                            <option value="<?php echo $category['Category']['id'] ?>"><?php echo $category['Category']['name'] ?></option>
+                                            <option value="<?php echo $category['Category']['id'] ?>" <?php echo (isset($qstring['category']) &&
+                                        $qstring['category'] == $category['Category']['id'])?'selected':''; ?>><?php echo $category['Category']['name'] ?></option>
                                         <?php
                                         }
                                         ?>
                                 </select>                               
                             </div>
                             <div class="search-phone">
-                                <?php echo $this->Form->input('phone_number',array(
+                                <?php 
+                                            $phone = (isset($qstring['phone_number']))?$qstring['phone_number']:'Enter a phone number';
+                                            echo $this->Form->input('phone_number',array(
                                             'label'=>'Phone Number',
                                             'class'=>'phone-input search-input',
-                                            'value'=>'Enter a phone number')); 
+                                            'value'=>$phone)); 
                                 ?>
                             </div>
                              <div class="search-type">                                
@@ -72,7 +81,8 @@ $this->assign('title', $title); ?>
                                         <?php
                                         foreach($types as $type){             
                                             ?>
-                                            <option value="<?php echo $type['Type']['id'] ?>"><?php echo $type['Type']['name'] ?></option>
+                                            <option value="<?php echo $type['Type']['id'] ?>" <?php echo (isset($qstring['type']) &&
+                                        $qstring['type'] == $type['Type']['id'])?'selected':''; ?>><?php echo $type['Type']['name'] ?></option>
                                         <?php
                                         }
                                         ?>
@@ -80,18 +90,22 @@ $this->assign('title', $title); ?>
                             </div>   
                         
                             <div class="start-date">
-                                <?php echo $this->Form->input('start_date',array(
+                                <?php 
+                                            $sd = (isset($qstring['sdate']))?$qstring['sdate']:'';
+                                            echo $this->Form->input('start_date',array(
                                             'label'=>'Date Added',
                                             'class'=>'date-input',
-                                            'value'=>'')); 
+                                            'value'=>$sd)); 
                                 ?>
                             </div>
                             <div class="date-divider" style="position: relative;float: right;font-size: 18px;font-weight: bold;top: -301px;color: #bebabc;left: -107px;">&ndash;</div>
                             <div class="end-date">
-                                <?php echo $this->Form->input('end_date',array(
+                                <?php 
+                                        $ed = (isset($qstring['edate']))?$qstring['edate']:'';
+                                        echo $this->Form->input('end_date',array(
                                             'label'=>'',
                                             'class'=>'date-input',
-                                            'value'=>'')); 
+                                            'value'=>$ed)); 
                                 ?>
                             </div>
                        <!-- </div>-->                 
@@ -177,7 +191,7 @@ foreach($pieces as $piece){
         </tbody>
 </table>
 <script>
-    
+/*    
 $(document).ready(function() {
 var stdTable1 = $("#pieces").dataTable({
     "iDisplayLength": -1,
@@ -201,10 +215,10 @@ var stdTable1 = $("#pieces").dataTable({
     },
                'aoColumnDefs': [{
                 'bSortable': false,
-                'aTargets': [-1] /* 1st one, start by the right */
+                'aTargets': [-1] // 1st one, start by the right 
             }]
 });  
-
+*/
 var tableId = 'pieces';
 $('<div style="width: 970px;"></div>').append($('#' + tableId)).insertAfter($('#' + tableId + '_wrapper div').first())});        
         
@@ -226,12 +240,12 @@ var words = [
   /* ... */
 ];
     
-var visible = 0    
+var visible = 1    
 $(document).ready(function(){
     
     //$( "#partners" ).combobox();
     
-    $('#advanced-search').hide();
+    //$('#advanced-search').hide();
     //$('.search-btn').css({'left':'0px'});
      $('.adv-search').click(function(){
         visible = (visible ==0)?1:0;
@@ -252,20 +266,16 @@ $(document).ready(function(){
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
-    /*
+    
     $('#pieces').DataTable(
         {   "bAutoWidth": false,
             'sScrollXInner':false,
            'aoColumnDefs': [{
                 'bSortable': false,
-                'aTargets': [-1] /* 1st one, start by the right */
+                'aTargets': [-1] 
             }]
         }
-    );
-    
-    
-*/
-
+    ); 
 
     
     
@@ -288,7 +298,7 @@ $(document).ready(function(){
             $this.val('Search for content by name or keyword');
         }                     
     });
-    
+ 
     $('.phone-input').click(function()
     {
     $phone = $(this);
@@ -303,7 +313,7 @@ $(document).ready(function(){
             $phone.val('Enter a phone number');
         }                     
     });  
-    $('#pieces_filter').hide();
+      $('#pieces_filter').hide();
    // $( ".end-date" ).datepicker();
     //$('.dataTables_filter label').html('Filter Table <br/><input type="search" class="" placeholder="" aria-controls="pieces">');
     

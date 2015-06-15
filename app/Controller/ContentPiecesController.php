@@ -56,16 +56,19 @@ public function index() {
         if(isset($_GET['searchwords'])){  
             if($_GET['searchwords'] != 'Search for content by name or keyword'){
                 $q = $_GET['searchwords'];
+                $qstring['searchwords'] = $q ;
             }
         }    
     
         if(isset($_GET['start_date']) && $_GET['start_date'] !=''){
             $sdate =  $_GET['start_date'];
             $sd = date('Y-m-d H:i:s', strtotime($sdate));
+            $qstring['sdate'] = $sdate;
         }
         if(isset($_GET['end_date']) && $_GET['end_date'] !=''){
             $edate =  $_GET['end_date'];
             $ed = date('Y-m-d 23:59:59', strtotime($edate));
+            $qstring['edate'] = $edate;
         }
 
         
@@ -96,6 +99,7 @@ public function index() {
                                   
         if(isset($_GET['audience']) && $_GET['audience'] !='0'){
                         $sql .= ' AND a.id ="'.$_GET['audience'].'"';
+                        $qstring['audience'] = $_GET['audience'];
         }
         
         if(isset($q)){
@@ -117,18 +121,22 @@ public function index() {
         
         if(isset($_GET['partner']) && $_GET['partner'] !=''){
            $sql .=' AND (p.id ='.$_GET['partner'].')';
+            $qstring['partner'] = $_GET['partner'];    
         }
         
         if(isset($_GET['category']) && $_GET['category'] !='0'){
            $sql .=' AND (cat.id ="'.$_GET['category'].'")';
+            $qstring['category'] = $_GET['category'];
         }
         
         if(isset($_GET['phone_number']) && $_GET['phone_number'] !='' && $_GET['phone_number'] != 'Enter a phone number'){
            $sql .=' AND (cp.phone_number ="'.$_GET['phone_number'].'")';
+            $qstring['phone_number'] = $_GET['phone_number'];
         }
         
         if(isset($_GET['type']) && $_GET['type'] !='' && $_GET['type'] != '0'){
            $sql .=' AND (t.id ="'.$_GET['type'].'")';
+            $qstring['type'] = $_GET['type'];
         }
     
 
@@ -136,7 +144,8 @@ public function index() {
            
         $this->set('pieces',$this->ContentPiece->query($sql));
         if(isset($q)){
-            $this->set('search_criteria',$q);    
+            $this->set('search_criteria',$q); 
+            $this->set('qstring',$qstring);
         }
        //echo $sql;
         $ksql = 'select keyword, count(*) as weight from keywords group by keyword ORDER BY weight DESC LIMIT 15';
