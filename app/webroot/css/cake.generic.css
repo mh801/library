@@ -75,7 +75,7 @@ p {
 /** Layout **/
 #container {
 	text-align: left;
-    width: 960px;
+    width: 965px;
     margin: auto;
     background: #fff;
     color: #7e7d7f;
@@ -779,8 +779,8 @@ select[name="pieces_length"]{
     height: 24px;
 }
 table.dataTable{
-    width: 960px !Important;
-    max-width: 960PX !Important;
+    width: 963px !Important;
+    max-width: 963PX !Important;
     float: left;
     left:-20px;
     position: relative;
@@ -1164,35 +1164,52 @@ table.dataTable thead .sorting,table.dataTable thead .sorting_desc,table.dataTab
 }
 th.th-name,td.piece-name{
     position: relative;
-    width: 119px !Important;
+    width: 80px !Important;
+    min-width:80px !Important;
+    max-width:80px !Important;
 }
 th.th-brand,td.brand{
     position: relative;
-    width: 90px !Important;    
+    width: 80px !Important;  
+    min-width:80px !Important;
+    max-width:80px !Important;    
 }
 th.th-audience,td.audience{
     position: relative;
-    width: 106px !Important;    
+    width: 90px !Important;   
+    min-width:90px !Important;
+    max-width:90px !Important;        
 }
 th.th-links,td.links{
     position: relative;
-    width: 241px !Important;    
+    width: 180px !Important;  
+    min-width:180px !Important;
+    max-width:180px !Important;      
 }
 th.th-type,td.type{
     position: relative;
-    width: 77px !Important;    
+    width: 70px !Important;    
+    min-width:70px !Important;
+    max-width:70px !Important;    
 }
 th.th-partner,td.partner{
     position: relative;
-    width: 103px !Important;    
+    width: 90px !Important;   
+    min-width:90px !Important;
+    max-width:90px !Important;
 }
 th.th-date,td.date{
     position: relative;
-    width: 109px !Important;    
+   
+    width: 76px !Important;   
+    min-width:76px !Important;
+    max-width:76px !Important;    
 }
 th.th-download,td.dl-btn{
     position: relative;
-    width: 115px !Important;    
+    width: 70px !Important;    
+    min-width:70px !Important;
+    max-width:70px !Important;    
 }
 th{
     text-align: center !important;

@@ -267,27 +267,89 @@ $(document).ready(function(){
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
-    
+    /*
     $('#pieces').DataTable(
-        {   "bAutoWidth": false,
-            'sScrollXInner':false,
-            "bScrollAutoCss": false,
-            "bAutoWidth": false,
-            "sScrollXInner": "110%",
-            "iDisplayLength": -1,
+        {   "bAutoWidth": true,
+            'sScrollXInner':true,
+            "bScrollAutoCss": true,
+            //"bAutoWidth": false,
+            "sScrollXInner": "100%",
+            "iDisplayLength": 10,
            "aLengthMenu": [[10,25, 50, 100, -1], [10,25, 50, 100, "All"]],
            'aoColumnDefs': [{
                 'bSortable': false,
                 'aTargets': [-1],
-                "sWidth": "auto",                         
+                //"sWidth": "auto",                         
             }],
+           "columnDefs": [
+    { "width": "10%", "targets": 0 }
+  ],
+        autoWidth: true,
+         //"sScrollX": "300px",
+         //"sScrollY": "100px"
         }
-    ); 
+    ); */
+ 
 
-
+   $('#pieces').DataTable(
+        {   
+            'sScrollXInner':false,
+            "bScrollAutoCss": false,
+//           "bAutoWidth": false,
+            "sScrollXInner": false,
+            "iDisplayLength": 10,
+           "aLengthMenu": [[10,25, 50, 100, -1], [10,25, 50, 100, "All"]],
+           'aoColumnDefs': [{
+                'bSortable': false,
+                'aTargets': [-1],
+               // "sWidth": "100px", 
+               "class": 'download'
+            },{
+                'bSortable': true,
+                'aTargets': [-2],
+               // "sWidth": "100px",
+                "class":"th-date"
+            }
+            ,{
+                'bSortable': true,
+                'aTargets': [-3],
+               // "sWidth": "120px;",  
+                "class":"th-partner"   
+            }       
+            ,{
+                'bSortable': true,
+                'aTargets': [-4],
+                //"sWidth": "240px",  
+                "class":"th-links" 
+            }  
+            ,{
+                'bSortable': true,
+                'aTargets': [-5],
+                
+                "class":"th-type" 
+            }    
+            ,{
+                'bSortable': true,
+                'aTargets': [-6],                  
+                "class":"th-audience" 
+            }  
+            ,{
+                'bSortable': true,
+                'aTargets': [-7],                  
+                "class":"th-brand" 
+            }      
+            ,{
+                'bSortable': true,
+                'aTargets': [-8],                  
+                "class":"th-name" 
+            }   
+                           ],
+            
+        }
+    ).columns.adjust().draw();
     
     
-    $('.download').removeClass('sorting');
+    //$('.download').removeClass('sorting');
     
     $( ".date-input" ).datepicker();
     
