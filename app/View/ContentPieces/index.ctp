@@ -271,14 +271,19 @@ $(document).ready(function(){
     $('#pieces').DataTable(
         {   "bAutoWidth": false,
             'sScrollXInner':false,
+            "bScrollAutoCss": false,
+            "bAutoWidth": false,
+            "sScrollXInner": "100%",
+            "iDisplayLength": -1,
            'aoColumnDefs': [{
                 'bSortable': false,
-                'aTargets': [-1] 
+                'aTargets': [-1],
+               "sWidth": "20%"
             }]
         }
     ); 
 
-    
+
     
     
     $('.download').removeClass('sorting');
