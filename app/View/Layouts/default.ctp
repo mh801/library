@@ -39,7 +39,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
         echo $this->Html->script('jqcloud');
         //datatables has been modified to prevent auto resize of columns
        // echo $this->Html->script('/js/jquery.dataTables.min.js');
- echo $this->Html->script('/js/dataTables.js');
+ echo $this->Html->script('/js/datatables.js');
 	?>
     <script type="text/javascript" src="//use.typekit.net/wcd8lgx.js"></script>
     
