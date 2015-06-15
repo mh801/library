@@ -20,7 +20,7 @@ $this->assign('title', $title);
                                             );
                                         echo $this->Form->submit('Search', array('type'=>'image','src' => 'https://8a14a4cdc153845f32b5-8250b0a3feea020289d5768bda2f75a1.ssl.cf1.rackcdn.com/contentlibrary/search-btn.png','class'=>'search-btn')); 
 ?>
-                    <h2 class="adv-search">+ Advanced Search</h2>
+                    <h2 class="adv-search">- Advanced Search</h2>
                     <div id="advanced-search">
                         <!--<div class="adv-fields">-->
                             <div class="search-audience">
@@ -240,7 +240,7 @@ var words = [
   /* ... */
 ];
     
-var visible = 1    
+var visible = 1;    
 $(document).ready(function(){
     
     //$( "#partners" ).combobox();
@@ -248,7 +248,7 @@ $(document).ready(function(){
     //$('#advanced-search').hide();
     //$('.search-btn').css({'left':'0px'});
      $('.adv-search').click(function(){
-        visible = (visible ==0)?1:0;
+        visible = (visible ==1)?0:1;
         if(visible == 1){
             $('.adv-search').text('- Advanced Search');
             $('.search-btn').css({'top': '250px',
@@ -263,6 +263,7 @@ $(document).ready(function(){
 
             $('.search-words').removeClass('adv-search-words');
         }
+         
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
