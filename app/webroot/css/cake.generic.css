@@ -1125,16 +1125,17 @@ label{
     margin: auto;
     position: relative;
 }
+
 .search-btn{
   position: relative;
   width: 60px;
   border: none;
   float: right;
-  top: -47px;
-  left: -81px;
+  top: 250px;
+  left: -52px;
+    z-index: 999;
     height: 36px;
 }
-
 .ui-autocomplete-input{
  color: #bebabc;
   border: 1px solid #bebabc;
