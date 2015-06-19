@@ -267,30 +267,7 @@ $(document).ready(function(){
           $('#advanced-search').slideToggle();
          //$('.search-btn').css({'left':'-81px'});
      });
-    /*
-    $('#pieces').DataTable(
-        {   "bAutoWidth": true,
-            'sScrollXInner':true,
-            "bScrollAutoCss": true,
-            //"bAutoWidth": false,
-            "sScrollXInner": "100%",
-            "iDisplayLength": 10,
-           "aLengthMenu": [[10,25, 50, 100, -1], [10,25, 50, 100, "All"]],
-           'aoColumnDefs': [{
-                'bSortable': false,
-                'aTargets': [-1],
-                //"sWidth": "auto",                         
-            }],
-           "columnDefs": [
-    { "width": "10%", "targets": 0 }
-  ],
-        autoWidth: true,
-         //"sScrollX": "300px",
-         //"sScrollY": "100px"
-        }
-    ); */
- 
-
+  
    $('#pieces').DataTable(
         {   
             'sScrollXInner':false,

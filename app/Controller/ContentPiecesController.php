@@ -1,4 +1,13 @@
 <?php
+/*
+Note:
+Post release the relationships were modified so a content piece is associated to an audience 
+the definition of audience and category have been changed in display for company naming convention
+audience is displayed as brand
+category is displayed as audience
+*/
+
+
 App::uses('File', 'Utility');
 class ContentPiecesController extends AppController {
     public $scaffold = 'admin';
@@ -207,6 +216,7 @@ public function index() {
         //Controller::loadModel('ContentPiecesAudiences'); 
         Controller::loadModel('ContentPiecesCategories'); 
         Controller::loadModel('ContentPiecesTypes'); 
+        Controller::loadModel('ContentPiecesAudiences'); 
         Controller::loadModel('ContentPiecesKeywords');
         Controller::loadModel('Keyword');
          Controller::loadModel('ContentPiecesPartners');
@@ -223,6 +233,14 @@ public function index() {
             
             if ($this->ContentPiece->save($this->data)) { 
             
+            //save the audience    
+              $this->ContentPiecesAudiences->create();
+              if ($this->ContentPiecesAudiences) {
+                    $a1['content_piece_id'] =$this->ContentPiece->id;
+                    $a1['audience_id'] =$this->data['Audience'];                                        
+                    $this->ContentPiecesAudiences->save($a1);                            
+                }                
+                    
                 //save the category    
               $this->ContentPiecesCategories->create();
               if ($this->ContentPiecesCategories) {
@@ -247,7 +265,8 @@ public function index() {
                     $d3['type_id'] =$this->data['Type'];                                        
                     $this->ContentPiecesTypes->save($d3);
                                                       
-                }                
+                }     
+                //pass id to the file upload
                  echo $this->ContentPiece->id;
                 
               //add keywords
@@ -347,14 +366,17 @@ public function index() {
                     LEFT OUTER JOIN partners p
                         ON cpp.partner_id = p.id';
         
-        
-            $sql .=' INNER JOIN audiences_categories ac
-                        ON ac.category_id = cat.id
-                     INNER JOIN audiences a
-                        ON a.id = ac.audience_id';
+            $sql .=' INNER JOIN content_pieces_audiences cpa
+                        ON cpa.content_piece_id = cp.id'; 
+    
+            $sql .=' INNER JOIN audiences a
+                        ON a.id = cpa.audience_id';
+                                  
         if(isset($_GET['audience']) && $_GET['audience'] !='0'){
                         $sql .= ' AND a.id ="'.$_GET['audience'].'"';
+                        $qstring['audience'] = $_GET['audience'];
         }
+
         
         if(isset($q)){
                     $sql .= ' INNER JOIN content_pieces_keywords cpk 
